@@ -9,6 +9,7 @@ Docker command:
 docker.exe run -d -i -t -p 389:389 -e SLAPD_PASSWORD=mysecretpassword -e SLAPD_DOMAIN=ldap.example.org --volume /users/ablack/:/etc/ldap.dist/prepopulate dinkel/openldap
 '''
 
+
 class VersionHandler(tornado.web.RequestHandler):
     def get(self):
         response = {'version': '3.5.1',
@@ -21,8 +22,8 @@ class GetGameByIdHandler(tornado.web.RequestHandler):
     def initialize(self, ldap):
         self.ldap = ldap
 
-    def get(self, id):
-        response = {'id': int(id),
+    def get(self, game_id):
+        response = {'id': int(game_id),
                     'name': 'Crazy Game',
                     'release_date': date.today().isoformat(),
                     'cn': self.ldap.search()[1]['attributes']['cn'][0]
